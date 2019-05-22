@@ -1,34 +1,33 @@
 package mainPackage;
 
-import java.util.Arrays;
 
 public class Element {
+    private int value;
+    private int weight;
 
-    private String[] attributes;
-    private String name;
-
-    Element (String[] attrs, String name){
-        attributes = attrs;
-        this.name = name;
+    Element (int v, int w){
+        value = v;
+        weight = w;
     }
 
-    public String[] getAttributes() {
-        return attributes;
+    public int getValue() {
+        return value;
     }
 
-    public String getAttribute(int i){
-        return attributes[i];
+    public void setValue(int value) {
+        this.value = value;
     }
 
-    public String getName() {
-        return name;
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override
     public String toString() {
-        return "mainPackage.Element{" +
-                "attributes=" + Arrays.toString(attributes) +
-                ", name='" + name + '\'' +
-                '}';
+        return "Element{" + "value=" + value + ", weight=" + weight + '}';
     }
 }
