@@ -6,11 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class BruteForce {
+class BruteForce {
+
+    /**
+     * TODO
+     * generator wektorów charakterystycznych
+     * translator wektora, na zbior rozwazanych elementow
+     * obliczanie sumy wag i wartosci zbioru i porownywanie ich z najlepszym do tej pory
+     *
+     */
 
     private List<mainPackage.Element> trainList;
     private int capacity;
-    private boolean isRunning = true;
 
     BruteForce(String trainPath){
         trainList = loadFile(new File(trainPath));
