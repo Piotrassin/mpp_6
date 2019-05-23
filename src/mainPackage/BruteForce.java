@@ -24,11 +24,7 @@ class BruteForce {
 
     BruteForce(String trainPath){
         elementList = loadFile(new File(trainPath));
-
-//        System.out.println(elementList.toString());
-
         generateVectors(elementList.size());
-
         System.out.println("Najlepsza kombinacja to " + bestCombination + " o wartosci " + bestValue + " i wadze " + bestWeight);
     }
 
@@ -60,17 +56,15 @@ class BruteForce {
             String s = "";
             int j = i;
 
-            if(i % 1000000 == 0){
+            if(i % 10000000 == 0){
                 System.out.println("beep");
             }
-
             for (int k = 0; k < elementCount; k++) {
-//                s = j % 2 + s;     //ta linia kodu spowalnia program z 800ms do 8000ms dla 10mln obrotow zewn. petli.
+                s = j % 2 + s;     //ta linia kodu spowalnia program z 800ms do 8000ms dla 10mln obrotow zewn. petli.
                                     //3500ms bez tej linijki dla wszystkich rozwiązań.
                 j = j / 2;
             }
-//            System.out.println("s");
-//            translateVectorToCombination(s);
+            translateVectorToCombination(s);
         }
     }
 
