@@ -9,23 +9,36 @@ import java.util.Scanner;
 class BruteForce {
 
     /**
-     * TODO
-     * DONE     generator wektorów charakterystycznych
+     *
+     * DONE     generator wektorow charakterystycznych
      * DONE     translator wektora, na zbior rozwazanych elementow
      * DONE     obliczanie sumy wag i wartosci zbioru i porownywanie ich z najlepszym do tej pory
-     *
      */
+
+    /**
+     * Best solution:
+     * 111100110111001110111011111111
+     * value 894 i weight 400
+     * Time elapsed: 303862
+     */
+
 
     private List<mainPackage.Element> elementList;
     private int backpackCapacity;
     private int bestValue;
     private int bestWeight;
-    private String bestCombination;
+    private int[] bestCombination;
 
     BruteForce(String trainPath){
         elementList = loadFile(new File(trainPath));
+
         generateVectors(elementList.size());
-        System.out.println("Najlepsza kombinacja to " + bestCombination + " o wartosci " + bestValue + " i wadze " + bestWeight);
+
+        System.out.println("Best combination is ");
+        for (int i1 : bestCombination) {
+            System.out.print(i1);
+        }
+        System.out.println("with a value of " + bestValue + " and weight of " + bestWeight);
     }
 
     private List<Element> loadFile(File file) {
@@ -48,38 +61,36 @@ class BruteForce {
         return elementList;
     }
 
-    private void generateVectors(int elementCount){
-        long combinationCount = (long) Math.pow(2, elementCount);
-        System.out.println("liczba kombinacji " + combinationCount);
+    private void generateVectors(int elementCount1){
+        long combinationCount1 = (long) Math.pow(2, elementCount1);
+        System.out.println("Number of combinations " + combinationCount1);
 
-        for (int i = 0; i < combinationCount; i++) {
-            String s = "";
-            int j = i;
+        for (int i = 0; i < combinationCount1; i++) {
+            int n = i;
+            int[] combination = new int[elementCount1];
+            int k = 0;
 
-            if(i % 10000000 == 0){
-                System.out.println("beep");
+            while(n > 0){
+                combination[k] = n % 2;
+                n /= 2;
+                k++;
             }
-            for (int k = 0; k < elementCount; k++) {
-                s = j % 2 + s;     //ta linia kodu spowalnia program z 800ms do 8000ms dla 10mln obrotow zewn. petli.
-                                    //3500ms bez tej linijki dla wszystkich rozwiązań.
-                j = j / 2;
-            }
-            translateVectorToCombination(s);
+            translateVectorToCombination(combination);
         }
     }
 
-    private void translateVectorToCombination(String vector){
+    private void translateVectorToCombination(int[] vector){
         List<Element> list = new ArrayList<>();
 
-        for (int i = 0; i < vector.length(); i++) {
-            if(vector.charAt(i) == '1') {
+        for (int i = 0; i < vector.length; i++) {
+            if(vector[i] == 1) {
                 list.add(elementList.get(i));
             }
         }
         checkCombination(list, vector);
     }
 
-    private void checkCombination(List<Element> combination, String vector){
+    private void checkCombination(List<Element> combination, int[] vector){
         int totalVal = 0;
         int totalWeight = 0;
 
